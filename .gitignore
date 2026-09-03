@@ -1,0 +1,31 @@
+# Local .terraform directories and lock file
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Exclude secrets and tfvars
+*.tfvars
+*.tfvars.json
+!terraform.tfvars.example
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# CLI and IDE files
+.terraformrc
+terraform.rc
+.directory
+.DS_Store
+
+# Python Virtual Environment
+.venv/
+__pycache__/
+*.pyc
+
+# Ansible retry files
+*.retry

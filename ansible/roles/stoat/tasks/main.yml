@@ -1,0 +1,32 @@
+---
+- name: Criar diretório de instalação do Stoat
+  ansible.builtin.file:
+    path: "{{ stoat_install_dir }}"
+    state: directory
+    owner: "{{ stoat_user }}"
+    group: "{{ stoat_group }}"
+    mode: '0755'
+
+- name: Clonar repositório do Stoat self-hosted
+  ansible.builtin.git:
+    repo: https://github.com/stoatchat/self-hosted.git
+    dest: "{{ stoat_install_dir }}"
+    version: main
+  become_user: "{{ stoat_user }}"
+
+- name: Verificar se secrets.env já existe
+  ansible.builtin.stat:
+    path: "{{ stoat_install_dir }}/secrets.env"
+  register: stoat_secrets
+
+- name: Executar generate_config.sh de forma não-interativa
+  ansible.builtin.shell:
+    cmd: "printf 'y\ny\n' | ./generate_config.sh {{ stoat_domain }}"
+    chdir: "{{ stoat_install_dir }}"
+  become_user: "{{ stoat_user }}"
+  when: not stoat_secrets.stat.exists
+
+- name: Iniciar os serviços do Stoat via Docker Compose
+  ansible.builtin.shell:
+    cmd: "docker compose up -d"
+    chdir: "{{ stoat_install_dir }}"

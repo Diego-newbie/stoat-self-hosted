@@ -1,0 +1,24 @@
+# Proxmox API Credentials
+proxmox_endpoint         = "https://192.168.15.10:8006/"
+proxmox_api_token_id     = "terraform-prov@pve!terraform-token"
+proxmox_api_token_secret = "seu-token-secret-aqui"
+proxmox_tls_insecure     = true
+
+# Target Node and Template
+target_node    = "pve"
+template_id    = 9000
+target_storage = "local-lvm"
+network_bridge = "vmbr0"
+
+# VM Resources
+vm_id        = 500
+vm_name      = "stoat-server"
+vm_cores     = 2
+vm_memory    = 3072
+vm_disk_size = 30
+
+# Network & Cloud-Init
+vm_ip_address  = "192.168.15.200/24"
+vm_gateway     = "192.168.15.1"
+ci_user        = "diego"
+ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPq87xAIyPjCzr1oQaajm6JaUCIgqMqqPF360tUO18R homelab-terraform"

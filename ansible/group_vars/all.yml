@@ -1,0 +1,9 @@
+---
+stoat_domain: "stoat.d-co.xyz"
+stoat_install_dir: "/opt/stoat"
+stoat_user: "diego"
+stoat_group: "diego"
+stoat_http_port: 8880
+video_enabled: true
+reverse_proxy_mode: true
+tailscale_enabled: true

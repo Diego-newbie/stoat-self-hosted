@@ -1,0 +1,10 @@
+---
+- name: Provisionar e Configurar o Servidor Stoat
+  hosts: stoat_hosts
+  become: yes
+
+  roles:
+    - role: common
+    - role: tailscale
+    - role: docker
+    - role: stoat

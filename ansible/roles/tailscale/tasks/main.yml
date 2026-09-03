@@ -1,0 +1,24 @@
+---
+- name: Adicionar chave GPG do repositório oficial do Tailscale
+  ansible.builtin.get_url:
+    url: https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg
+    dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+    mode: '0644'
+
+- name: Adicionar repositório oficial do Tailscale
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/ubuntu jammy main"
+    state: present
+    filename: tailscale
+
+- name: Instalar pacote do Tailscale
+  ansible.builtin.apt:
+    name: tailscale
+    state: present
+    update_cache: yes
+
+- name: Habilitar e iniciar serviço do Tailscale
+  ansible.builtin.systemd:
+    name: tailscaled
+    enabled: yes
+    state: started
